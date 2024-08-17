@@ -1,4 +1,12 @@
-export const Game = () => {
+import { Field } from "../types/field"
+import { Route } from "../types/route"
+
+interface GameProps {
+  setRoute: React.Dispatch<React.SetStateAction<Route>>;
+  field: Field;
+}
+
+export const Game: React.FC<GameProps> = ({ setRoute, field }) => {
   return (
     <>
       <div className="score">00012340</div>
