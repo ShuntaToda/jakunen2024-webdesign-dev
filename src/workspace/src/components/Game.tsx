@@ -11,7 +11,7 @@ interface GameProps {
 export const Game: React.FC<GameProps> = ({ setRoute, field, setScore, score }) => {
   return (
     <>
-      <div className="score">00012340</div>
+      <div className="score">{score.toString().padStart(8, '0')}</div>
       <div className="field">
         <div className="tile rock"></div>
         <div className="tile"></div>
