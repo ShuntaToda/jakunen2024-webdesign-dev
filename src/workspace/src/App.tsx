@@ -13,6 +13,7 @@ function App() {
   const [field, setField] = useState<Field>([])
 
 
+
   useEffect(() => {
     const getField = async () => {
       const data = await fetchField()
@@ -23,7 +24,7 @@ function App() {
 
   const router = () => {
     if (route === "game") {
-      return <Game />
+      return <Game setRoute={setRoute} field={field} />
     } else if (route === "result") {
       return <Result />
     }
