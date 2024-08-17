@@ -4,6 +4,7 @@ import "./styles/common.css"
 import "./styles/index.css"
 import "./styles/result.css"
 import { Field } from "./types/field"
+import { Game } from "./components/Game"
 
 function App() {
   const [field, setField] = useState<Field>([])
@@ -20,69 +21,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <div className="score">00012340</div>
-        <div className="field">
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile enemy"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile flower"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile player"></div>
-          <div className="tile mushroom"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile stump"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile flower"></div>
-          <div className="tile"></div>
-          <div className="tile stump"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile stump"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile mushroom"></div>
-          <div className="tile"></div>
-          <div className="tile rock"></div>
-          <div className="tile rock"></div>
-          <div className="tile"></div>
-          <div className="tile stump"></div>
-          <div className="tile flower"></div>
-          <div className="tile rock"></div>
-        </div>
+        <Game />
       </div>
     </>
   )
