@@ -6,6 +6,7 @@ import "./styles/result.css"
 import { Field } from "./types/field"
 import { Game } from "./components/Game"
 import { Route } from "./types/route"
+import { Result } from "./components/Result"
 
 function App() {
   const [route, setRoute] = useState<Route>("game")
@@ -20,10 +21,18 @@ function App() {
     getField()
   }, [])
 
+  const router = () => {
+    if (route === "game") {
+      return <Game />
+    } else if (route === "result") {
+      return <Result />
+    }
+  }
+
   return (
     <>
       <div className="container">
-        <Game />
+        {router()}
       </div>
     </>
   )
