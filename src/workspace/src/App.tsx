@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react"
+import { fetchField } from "./apis/field"
 import "./styles/common.css"
 import "./styles/index.css"
 import "./styles/result.css"
+import { Field } from "./types/field"
 
 function App() {
+  const [field, setField] = useState<Field>([])
+
+
+  useEffect(() => {
+    const getField = async () => {
+      const data = await fetchField()
+      setField(data)
+    }
+    getField()
+  }, [])
 
   return (
     <>
