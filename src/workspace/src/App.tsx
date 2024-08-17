@@ -1,3 +1,7 @@
+import "./styles/common.css"
+import "./styles/index.css"
+import "./styles/result.css"
+
 function App() {
 
   return (
