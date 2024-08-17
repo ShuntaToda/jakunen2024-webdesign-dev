@@ -11,7 +11,7 @@ import { Result } from "./components/Result"
 function App() {
   const [route, setRoute] = useState<Route>("game")
   const [field, setField] = useState<Field>([])
-
+  const [score, setScore] = useState<number>(0)
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
 
   const router = () => {
     if (route === "game") {
-      return <Game setRoute={setRoute} field={field} />
+      return <Game setRoute={setRoute} field={field} setScore={setScore} score={score} />
     } else if (route === "result") {
       return <Result />
     }

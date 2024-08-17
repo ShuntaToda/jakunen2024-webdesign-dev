@@ -4,9 +4,11 @@ import { Route } from "../types/route"
 interface GameProps {
   setRoute: React.Dispatch<React.SetStateAction<Route>>;
   field: Field;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  score: number;
 }
 
-export const Game: React.FC<GameProps> = ({ setRoute, field }) => {
+export const Game: React.FC<GameProps> = ({ setRoute, field, setScore, score }) => {
   return (
     <>
       <div className="score">00012340</div>
