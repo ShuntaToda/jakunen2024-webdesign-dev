@@ -10,16 +10,15 @@ interface GameProps {
 }
 
 export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
-
-
   const [field, setField] = useState<Field>([])
+  const [objData, setObjData] = useState<Field>([])
 
   useEffect(() => {
-    const getField = async () => {
+    const getObj = async () => {
       const data = await fetchField()
-      setField(data)
+      setObjData(data)
     }
-    getField()
+    getObj()
   }, [])
 
   const selectCellType = (type: CellValue) => {
