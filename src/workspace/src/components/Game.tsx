@@ -101,10 +101,6 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
             <div className="tile rock"></div>
           </React.Fragment>
         ))}
-
-        {/* <div className="tile enemy"></div>
-        <div className="tile stump"></div>
-        <div className="tile player"></div> */}
       </div>
     </>
   )
