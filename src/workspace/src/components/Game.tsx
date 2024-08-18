@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CellValue, Field, FieldRow } from "../types/field"
 import { Route } from "../types/route"
 import { fetchField } from "../apis/field";
@@ -46,6 +46,25 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
         return <div className="tile player"></div>;
     }
   }
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "ArrowLeft":
+
+        return
+      case "ArrowRight":
+
+        return
+    }
+  }
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [field, fieldCount])
+
   return (
     <>
       <div className="score">{score.toString().padStart(8, '0')}</div>
@@ -58,7 +77,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
                 <React.Fragment key={cellIndex}>
                   {selectCellType(cell)}
                 </React.Fragment>
-)
+              )
             })}
             <div className="tile rock"></div>
           </React.Fragment>
