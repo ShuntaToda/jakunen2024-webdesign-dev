@@ -83,7 +83,10 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
       document.removeEventListener("keydown", handleKeyDown)
     }
   }, [])
+
+
   const updateField = useCallback(() => {
+    setScore(prevScore => prevScore + 10)
     setField((prevField) => {
       const newField: Field = prevField.map(row => [...row]);
       const playerPosition = newField[playerRowPlace].findIndex(cell => cell === 4)
