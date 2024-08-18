@@ -16,7 +16,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     const playerRow: FieldRow = [0, 4, 0]
     const newField: Field = []
     for (let i = 0; i < numberOfRows; i++) {
-      i !== 1 ? newField.push(row) : newField.push(playerRow)
+      i !== 2 ? newField.push(row) : newField.push(playerRow)
     }
     return newField
   })
