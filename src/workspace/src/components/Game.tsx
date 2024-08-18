@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CellValue, Field, FieldRow } from "../types/field"
 import { Route } from "../types/route"
 import { fetchField } from "../apis/field";
+import { PlayerDirection } from "../types/playerDirction";
 
 interface GameProps {
   setRoute: React.Dispatch<React.SetStateAction<Route>>;
@@ -11,12 +12,13 @@ interface GameProps {
 
 export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
   const numberOfRows = 12
+  const playerRowPlace = 2
   const [field, setField] = useState<Field>((): Field => {
     const row: FieldRow = [0, 0, 0]
     const playerRow: FieldRow = [0, 4, 0]
     const newField: Field = []
     for (let i = 0; i < numberOfRows; i++) {
-      i !== 2 ? newField.push(row) : newField.push(playerRow)
+      i !== playerRowPlace ? newField.push(row) : newField.push(playerRow)
     }
     return newField
   })
@@ -47,23 +49,39 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     }
   }
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    switch (e.key) {
-      case "ArrowLeft":
+  const movePlayer = useCallback((direction: PlayerDirection) => {
+    console.log(field[2]);
 
-        return
-      case "ArrowRight":
+    setField((prevField) => {
+      const playerIndex = prevField[playerRowPlace].findIndex(cell => cell === 4)
+      switch (direction) {
+        case "ArrowLeft":
+          if (playerIndex !== 0) {
+            prevField[playerRowPlace][playerIndex] = 0
+            prevField[playerRowPlace][playerIndex - 1] = 4
+          }
+          return [...prevField]
+        case "ArrowRight":
+          if (playerIndex < prevField[playerRowPlace].length - 1) {
+            prevField[playerRowPlace][playerIndex] = 0
+            prevField[playerRowPlace][playerIndex + 1] = 4
+          }
+          return [...prevField]
+      }
+    })
+  }, [])
 
-        return
-    }
-  }
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") movePlayer(e.key as PlayerDirection)
+  }, [])
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown)
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [field, fieldCount])
+  }, [])
 
   return (
     <>
