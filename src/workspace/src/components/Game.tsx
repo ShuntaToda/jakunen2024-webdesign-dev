@@ -50,38 +50,39 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
   }
 
   const movePlayer = useCallback((direction: PlayerDirection) => {
-    console.log(field[2]);
 
     setField((prevField) => {
-      const playerIndex = prevField[playerRowPlace].findIndex(cell => cell === 4)
+      const newField: Field = prevField.map(row => [...row]);
+      const playerIndex = newField[playerRowPlace].findIndex(cell => cell === 4)
       switch (direction) {
         case "ArrowLeft":
           if (playerIndex !== 0) {
-            prevField[playerRowPlace][playerIndex] = 0
-            prevField[playerRowPlace][playerIndex - 1] = 4
+            newField[playerRowPlace][playerIndex] = 0
+            newField[playerRowPlace][playerIndex - 1] = 4
           }
-          return [...prevField]
+
+          return [...newField]
         case "ArrowRight":
-          if (playerIndex < prevField[playerRowPlace].length - 1) {
-            prevField[playerRowPlace][playerIndex] = 0
-            prevField[playerRowPlace][playerIndex + 1] = 4
+          if (playerIndex < newField[playerRowPlace].length - 1) {
+            newField[playerRowPlace][playerIndex] = 0
+            newField[playerRowPlace][playerIndex + 1] = 4
           }
-          return [...prevField]
+          return [...newField]
       }
     })
   }, [])
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") movePlayer(e.key as PlayerDirection)
-  }, [])
 
   useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") movePlayer(e.key as PlayerDirection)
+    }
 
+    document.addEventListener("keydown", handleKeyDown)
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [])
+  }, [movePlayer])
 
   return (
     <>
