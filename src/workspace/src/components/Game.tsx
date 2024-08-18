@@ -50,11 +50,15 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     <>
       <div className="score">{score.toString().padStart(8, '0')}</div>
       <div className="field">
-        {objData.map(row => {
-          return row.map(cell => {
-            return selectCellType(cell)
-          })
-        })}
+        {field.map(row => (
+          <>
+            <div className="tile rock"></div>
+            {row.map(cell => {
+              return selectCellType(cell)
+            })}
+            <div className="tile rock"></div>
+          </>
+        ))}
 
         {/* <div className="tile enemy"></div>
         <div className="tile stump"></div>
