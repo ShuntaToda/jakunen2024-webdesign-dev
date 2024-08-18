@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CellValue, Field } from "../types/field"
+import { CellValue, Field, FieldRow } from "../types/field"
 import { Route } from "../types/route"
 import { fetchField } from "../apis/field";
 
@@ -10,7 +10,14 @@ interface GameProps {
 }
 
 export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
-  const [field, setField] = useState<Field>([])
+  const [field, setField] = useState<Field>((): Field => {
+    const row: FieldRow = [0, 0, 0]
+    const newField: Field = []
+    for (let i = 0; i < 20; i++) {
+      newField.push(row)
+    }
+    return newField
+  })
   const [objData, setObjData] = useState<Field>([])
 
   useEffect(() => {
