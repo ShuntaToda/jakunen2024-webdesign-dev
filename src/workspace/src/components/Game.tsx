@@ -50,14 +50,18 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     <>
       <div className="score">{score.toString().padStart(8, '0')}</div>
       <div className="field">
-        {field.map(row => (
-          <>
+        {field.map((row, index) => (
+          <React.Fragment key={`row-${index}`}>
             <div className="tile rock"></div>
-            {row.map(cell => {
-              return selectCellType(cell)
+            {row.map((cell, cellIndex) => {
+              return (
+                <React.Fragment key={cellIndex}>
+                  {selectCellType(cell)}
+                </React.Fragment>
+)
             })}
             <div className="tile rock"></div>
-          </>
+          </React.Fragment>
         ))}
 
         {/* <div className="tile enemy"></div>
