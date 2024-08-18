@@ -1,30 +1,18 @@
-import { useEffect, useState } from "react"
-import { fetchField } from "./apis/field"
+import { useState } from "react"
 import "./styles/common.css"
 import "./styles/index.css"
 import "./styles/result.css"
-import { Field } from "./types/field"
 import { Game } from "./components/Game"
 import { Route } from "./types/route"
 import { Result } from "./components/Result"
 
 function App() {
   const [route, setRoute] = useState<Route>("game")
-  const [field, setField] = useState<Field>([])
   const [score, setScore] = useState<number>(0)
-
-
-  useEffect(() => {
-    const getField = async () => {
-      const data = await fetchField()
-      setField(data)
-    }
-    getField()
-  }, [])
 
   const router = () => {
     if (route === "game") {
-      return <Game setRoute={setRoute} field={field} setScore={setScore} score={score} />
+      return <Game setRoute={setRoute} setScore={setScore} score={score} />
     } else if (route === "result") {
       return <Result />
     }

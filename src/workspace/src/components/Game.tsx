@@ -1,14 +1,26 @@
+import { useEffect, useState } from "react";
 import { CellValue, Field } from "../types/field"
 import { Route } from "../types/route"
+import { fetchField } from "../apis/field";
 
 interface GameProps {
   setRoute: React.Dispatch<React.SetStateAction<Route>>;
-  field: Field;
   setScore: React.Dispatch<React.SetStateAction<number>>;
   score: number;
 }
 
-export const Game: React.FC<GameProps> = ({ setRoute, field, setScore, score }) => {
+export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
+
+
+  const [field, setField] = useState<Field>([])
+
+  useEffect(() => {
+    const getField = async () => {
+      const data = await fetchField()
+      setField(data)
+    }
+    getField()
+  }, [])
 
   const selectCellType = (type: CellValue) => {
     switch (type) {
