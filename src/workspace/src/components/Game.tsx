@@ -10,14 +10,16 @@ interface GameProps {
 }
 
 export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
+  const numberOfRows = 20
   const [field, setField] = useState<Field>((): Field => {
     const row: FieldRow = [0, 0, 0]
     const newField: Field = []
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < numberOfRows; i++) {
       newField.push(row)
     }
     return newField
   })
+  const [fieldCount, setFieldCount] = useState<number>(0)
   const [objData, setObjData] = useState<Field>([])
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     <>
       <div className="score">{score.toString().padStart(8, '0')}</div>
       <div className="field">
-        {field.map(row => {
+        {objData.map(row => {
           return row.map(cell => {
             return selectCellType(cell)
           })
