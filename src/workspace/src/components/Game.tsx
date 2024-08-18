@@ -87,29 +87,29 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
 
   const updateField = useCallback(() => {
     setScore(prevScore => prevScore + 10)
-    setField((prevField) => {
-      const newField: Field = prevField.map(row => [...row]);
-      const playerPosition = newField[playerRowPlace].findIndex(cell => cell === 4)
-      newField[playerRowPlace] = newField[playerRowPlace].map(cell => cell === 4 ? 0 : cell) as FieldRow
-      newField.shift()
-      if (objData[fieldCount] === undefined) {
-        setFieldCount(0)
-        newField.push(objData[0])
-      } else {
-        newField.push(objData[fieldCount])
-      }
+    const newField: Field = field.map(row => [...row]);
+    const playerPosition = newField[playerRowPlace].findIndex(cell => cell === 4)
+    newField[playerRowPlace] = newField[playerRowPlace].map(cell => cell === 4 ? 0 : cell) as FieldRow
+    newField.shift()
+    if (objData[fieldCount] === undefined) {
+      setFieldCount(0)
+      newField.push(objData[0])
+    } else {
+      newField.push(objData[fieldCount])
+    }
 
-      // フィールド移動によるプレイヤー当たり判定
-      if (newField[playerRowPlace][playerPosition] === 0) {
-        newField[playerRowPlace][playerPosition] = 4
-      } else {
-        newField[playerRowPlace][playerPosition] = 4
-      }
-
-      return [...newField];
-    });
+    // フィールド移動によるプレイヤー当たり判定
+    if (newField[playerRowPlace][playerPosition] === 0) {
+      newField[playerRowPlace][playerPosition] = 4
+    } else if (newField[playerRowPlace][playerPosition] === 2) {
+      setScore(prevScore => prevScore + 100)
+      newField[playerRowPlace][playerPosition] = 4
+    } else {
+      newField[playerRowPlace][playerPosition] = 4
+    }
+    setField([...newField]);
     setFieldCount(count => count + 1)
-  }, [objData, fieldCount]);
+  }, [objData, fieldCount, field]);
 
   useEffect(() => {
     const timeoutId = setInterval(updateField, 300);
