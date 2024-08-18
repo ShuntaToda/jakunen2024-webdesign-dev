@@ -83,6 +83,38 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
       document.removeEventListener("keydown", handleKeyDown)
     }
   }, [])
+  const updateField = useCallback(() => {
+    setField((prevField) => {
+      const newField: Field = prevField.map(row => [...row]);
+      const playerPosition = newField[playerRowPlace].findIndex(cell => cell === 4)
+      newField[playerRowPlace] = newField[playerRowPlace].map(cell => cell === 4 ? 0 : cell) as FieldRow
+      newField.shift()
+      if (objData[fieldCount] === undefined) {
+        setFieldCount(0)
+        newField.push(objData[0])
+      } else {
+        newField.push(objData[fieldCount])
+      }
+
+      // フィールド移動によるプレイヤー当たり判定
+      if (newField[playerRowPlace][playerPosition] === 0) {
+        newField[playerRowPlace][playerPosition] = 4
+      } else {
+        newField[playerRowPlace][playerPosition] = 4
+      }
+
+      return [...newField];
+    });
+    setFieldCount(count => count + 1)
+  }, [objData, fieldCount]);
+
+  useEffect(() => {
+    const timeoutId = setInterval(updateField, 300);
+    // クリーンアップ関数
+    return () => {
+      if (timeoutId) clearInterval(timeoutId);
+    };
+  }, [updateField]);
 
   return (
     <>
