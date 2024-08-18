@@ -57,6 +57,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
       switch (direction) {
         case "ArrowLeft":
           if (playerIndex !== 0) {
+            if (newField[playerRowPlace][playerIndex] === 2) setScore(prevScore => prevScore + 10)
             newField[playerRowPlace][playerIndex] = 0
             newField[playerRowPlace][playerIndex - 1] = 4
           }
@@ -64,6 +65,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
           return [...newField]
         case "ArrowRight":
           if (playerIndex < newField[playerRowPlace].length - 1) {
+            if (newField[playerRowPlace][playerIndex] === 2) setScore(prevScore => prevScore + 10)
             newField[playerRowPlace][playerIndex] = 0
             newField[playerRowPlace][playerIndex + 1] = 4
           }
