@@ -49,7 +49,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     }
   }
 
-  const movePlayer = useCallback((direction: PlayerDirection) => {
+  const movePlayer = (direction: PlayerDirection) => {
 
     setField((prevField) => {
       const newField: Field = prevField.map(row => [...row]);
@@ -70,7 +70,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
           return [...newField]
       }
     })
-  }, [])
+  }
 
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [movePlayer])
+  }, [])
 
   return (
     <>
