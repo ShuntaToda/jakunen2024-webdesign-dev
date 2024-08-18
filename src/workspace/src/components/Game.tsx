@@ -37,7 +37,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
       case 0:
         return <div className="tile"></div>;
       case 1:
-        return <div className="tile rock"></div>;
+        return <div className="tile stump"></div>;
       case 2:
         return <div className="tile flower"></div>;
       case 3:
