@@ -10,12 +10,13 @@ interface GameProps {
 }
 
 export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
-  const numberOfRows = 20
+  const numberOfRows = 12
   const [field, setField] = useState<Field>((): Field => {
     const row: FieldRow = [0, 0, 0]
+    const playerRow: FieldRow = [0, 4, 0]
     const newField: Field = []
     for (let i = 0; i < numberOfRows; i++) {
-      newField.push(row)
+      i !== 1 ? newField.push(row) : newField.push(playerRow)
     }
     return newField
   })
@@ -30,6 +31,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     getObj()
   }, [])
 
+
   const selectCellType = (type: CellValue) => {
     switch (type) {
       case 0:
@@ -40,6 +42,8 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
         return <div className="tile flower"></div>;
       case 3:
         return <div className="tile mushroom"></div>;
+      case 4:
+        return <div className="tile player"></div>;
     }
   }
   return (
@@ -51,6 +55,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
             return selectCellType(cell)
           })
         })}
+
         {/* <div className="tile enemy"></div>
         <div className="tile stump"></div>
         <div className="tile player"></div> */}
