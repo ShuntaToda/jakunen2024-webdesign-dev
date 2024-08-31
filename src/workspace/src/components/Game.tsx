@@ -51,27 +51,25 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
 
   const movePlayer = (direction: PlayerDirection) => {
 
-    setField((prevField) => {
-      const newField: Field = prevField.map(row => [...row]);
-      const playerIndex = newField[playerRowPlace].findIndex(cell => cell === 4)
-      switch (direction) {
-        case "ArrowLeft":
-          if (playerIndex !== 0) {
-            if (newField[playerRowPlace][playerIndex] === 2) setScore(prevScore => prevScore + 10)
-            newField[playerRowPlace][playerIndex] = 0
-            newField[playerRowPlace][playerIndex - 1] = 4
-          }
+    const newField: Field = field.map(row => [...row]);
+    const playerIndex = newField[playerRowPlace].findIndex(cell => cell === 4)
+    switch (direction) {
+      case "ArrowLeft":
+        if (playerIndex !== 0) {
+          if (newField[playerRowPlace][playerIndex - 1] === 2) setScore(prevScore => prevScore + 100)
+          newField[playerRowPlace][playerIndex] = 0
+          newField[playerRowPlace][playerIndex - 1] = 4
+        }
 
-          return [...newField]
-        case "ArrowRight":
-          if (playerIndex < newField[playerRowPlace].length - 1) {
-            if (newField[playerRowPlace][playerIndex] === 2) setScore(prevScore => prevScore + 10)
-            newField[playerRowPlace][playerIndex] = 0
-            newField[playerRowPlace][playerIndex + 1] = 4
-          }
-          return [...newField]
-      }
-    })
+        return setField([...newField])
+      case "ArrowRight":
+        if (playerIndex < newField[playerRowPlace].length - 1) {
+          if (newField[playerRowPlace][playerIndex + 1] === 2) setScore(prevScore => prevScore + 100)
+          newField[playerRowPlace][playerIndex] = 0
+          newField[playerRowPlace][playerIndex + 1] = 4
+        }
+        return setField([...newField])
+    }
   }
 
 
@@ -84,7 +82,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [])
+  }, [field])
 
 
   const updateField = useCallback(() => {
@@ -114,7 +112,7 @@ export const Game: React.FC<GameProps> = ({ setRoute, setScore, score }) => {
   }, [objData, fieldCount, field]);
 
   useEffect(() => {
-    const timeoutId = setInterval(updateField, 300);
+    const timeoutId = setInterval(updateField, 1000);
     // クリーンアップ関数
     return () => {
       if (timeoutId) clearInterval(timeoutId);
